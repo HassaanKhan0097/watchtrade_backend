@@ -45,8 +45,9 @@ exports.authentication = async (req, res) => {
 
 
   exports.signup = async (req, res) =>{
+
+    console.log(req.body);
     var user = new User();
-    user.userType   = req.body.userType
     user.firstName  = req.body.firstName
     user.lastName   = req.body.lastName
     user.userName   = req.body.userName

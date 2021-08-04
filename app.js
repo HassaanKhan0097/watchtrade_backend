@@ -23,6 +23,7 @@ var productsRouter 	= require('./routes/products')
 var ordersRouter 	= require('./routes/orders')
 var leadsRouter 	= require('./routes/leads')
 var websiteRouter 	= require('./routes/website')
+var sellRouter 	= require('./routes/sell')
 
 var testRouter 	= require('./routes/test') //Test Route
 
@@ -77,6 +78,7 @@ app.use('/users', 		 usersRouter)
 app.use('/products', 	 authenticationMiddleware, productsRouter)
 app.use('/orders', 		authenticationMiddleware, ordersRouter)
 app.use('/leads', 		authenticationMiddleware, leadsRouter)
+app.use('/sells', 		authenticationMiddleware, sellRouter)
 
 app.use('/test', 	  testRouter) //TEST ROUTE
 
