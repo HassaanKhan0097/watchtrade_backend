@@ -18,7 +18,7 @@ const BidHistorySchema = mongoose.Schema([{
     bidTime: {
         type: Date,
         required: false,
-        default: Date.now
+        default: new Date(),
     },
     status: {
         type: String,
@@ -50,7 +50,7 @@ const ProductSchema = new Schema({
         required: true,
     },
     auctionExpireAt:{ 
-        type: String,
+        type: Date,
         required: false,
         default: null
     },
@@ -83,7 +83,7 @@ const ProductSchema = new Schema({
         required: true
     },
     watchAge:{
-        type: String,
+        type: Date,
         required: true
     },
     movement: {

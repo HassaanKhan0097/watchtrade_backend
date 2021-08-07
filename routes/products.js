@@ -5,7 +5,7 @@ var controller 	        = require('../controllers/productsController')
 router.route('/')				.get(controller.index)
 router.route('/:_id')			.get(controller.index)
 router.route('/create')			.post(controller.create)
-router.route('/update')			.post(controller.update)
+router.route('/update/:_id')		.post(controller.update)
 router.route('/delete')			.post(controller.delete)
 router.route('/addbids')	    .post(controller.addbids)
 
