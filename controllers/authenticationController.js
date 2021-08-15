@@ -52,9 +52,10 @@ exports.authentication = async (req, res) => {
     user.lastName   = req.body.lastName
     user.userName   = req.body.userName
     user.email      = req.body.email.toLowerCase()
-    user.password   = req.body.password
+    user.password   = bcrypt.hashSync(req.body.password, 10);
     user.mobileNo   = req.body.mobileNo
 
+    
     // call a func and check for validation
     const { errors, isValid } = validationSignup(req.body)
   //check if it returns false it means errors occurs

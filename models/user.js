@@ -74,6 +74,41 @@ const BidHistorySchema = mongoose.Schema([{
     },
 }])
 
+const NotificationSchema = mongoose.Schema([{
+    productId:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'product',
+        default: null
+    },
+    productImage:{
+        type: String,
+        required: true,
+        default: null
+    },
+    productFullname:{
+        type: String,
+        required: true,
+        default: null
+    },
+    text: {
+        type: String,
+        required: true,
+        default: null
+      },
+    time: {
+        type: Date,
+        required: true,
+        default: null
+    },
+    status: {
+        type: String,
+        required: true,
+        enum : ['unread', 'read'],
+        default: 'unread'
+    },
+}])
+
 const UserSchema = new Schema({
     userType: {
         type: String,
@@ -114,6 +149,7 @@ const UserSchema = new Schema({
     billingDetails  : [BillingDetailSchema],
     invoiceAddresses: [InvoiceAddressSchema],
     bidsList        : [BidHistorySchema],
+    notiList        : [NotificationSchema],
     created_at      : { type: Date, default: Date.now },
 })
 

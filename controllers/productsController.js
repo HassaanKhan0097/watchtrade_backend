@@ -49,7 +49,7 @@ exports.create = function (req, res) {
     console.log("product create with req", req.body)
     // let images = [];
     var product = new Product();
-    product.userId          = req.user._id
+    product.userId          = req.body.userId
     product.name            = req.body.name
     product.brand           = req.body.brand
     product.modelNo         = req.body.modelNo
@@ -154,7 +154,6 @@ exports.create = function (req, res) {
 exports.update = function (req, res) {
 
     console.log("Update Called! with param", req.params._id)
-    console.log("product update with req", req.body)
 
 
     Product.findByIdAndUpdate(req.params._id, { $set: req.body }, { upsert: true, new: true }, function (err, product) {
@@ -165,7 +164,7 @@ exports.update = function (req, res) {
         }
         res.json({
             statusCode: 200,
-            message: "Product has been updated, it is now in review process!",
+            message: "Product has been updated.",
             data: product
         });
     });
@@ -215,6 +214,7 @@ exports.delete = async function (req, res) {
 };
 exports.addbids = async function (req, res) {
 
+        console.log("req.body", req.body);
         product = await Product.findOne({_id: req.body.productId}, function (err) {
             if (err){
                 res.statusCode = 400;
@@ -244,23 +244,34 @@ exports.addbids = async function (req, res) {
         bidTime     :  new Date(),
         status      : "pending",
     })
+
+    console.log("after update -->",product)
+    console.log("after update -->",user)
+
     product.save(function (err) {
         if (err)
         {
+            console.log("product err->",err)
             res.statusCode = 400;
             res.json({err, success: false});
+        } else {
+
+            user.save(function (_err) {
+                if (_err){
+                    console.log("user err->",_err)
+                    res.statusCode = 400;
+                    res.json({_err, success: false});
+                } else {
+                    res.json({
+                        statusCode: 200,
+                        message: "Bid has been submitted!",
+                        data: product
+                    });
+                }
+    
+            })
+
         }
-        user.save(function (_err) {
-            if (_err){
-                res.statusCode = 400;
-                res.json({err, success: false});
-            }
-            res.json({
-                statusCode: 200,
-                message: "Bid has been submitted!",
-                data: product
-            });
-        })
 
     });
 };

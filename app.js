@@ -29,7 +29,9 @@ var testRouter 	= require('./routes/test') //Test Route
 
 
 // Cron Job 0 * * * *
-cron.schedule('0 * * * *', cronJobController.index)
+// cron.schedule('0 * * * *', cronJobController.index)
+cron.schedule('* * * * *', cronJobController.index)
+
 
 var app = express()
 // Enable All CORS Requests
