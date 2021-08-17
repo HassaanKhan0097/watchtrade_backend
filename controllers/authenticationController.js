@@ -18,14 +18,15 @@ exports.authentication = async (req, res) => {
 	});
     console.log("user", user)
 	if (user) {
-		const passwordCompare = await bcrypt.compare(
-			req.body.password,
-			user.password
-		);
+
+		const passwordCompare = bcrypt.compareSync(req.body.password, user.password);
+        // const passwordCompare = (req.body.password == user.password) ? true : false;
+
         console.log(passwordCompare)
 		if (!passwordCompare) {
             res.sendStatus(400)
-		}
+		} 
+
         const token = generateAccessToken({
             _id     : user._id,
             userType: user.userType,
@@ -46,13 +47,14 @@ exports.authentication = async (req, res) => {
 
   exports.signup = async (req, res) =>{
 
-    console.log(req.body);
+    console.log("signup this user -->",req.body);
     var user = new User();
     user.firstName  = req.body.firstName
     user.lastName   = req.body.lastName
     user.userName   = req.body.userName
     user.email      = req.body.email.toLowerCase()
     user.password   = bcrypt.hashSync(req.body.password, 10);
+    // user.password   = req.body.password
     user.mobileNo   = req.body.mobileNo
 
     
@@ -82,6 +84,7 @@ exports.authentication = async (req, res) => {
             });
         }
     try {
+        console.log("Finally ssignup with this user -->",user)
          user.save(function (err, user) {
             if (err)
                 res.json(err);

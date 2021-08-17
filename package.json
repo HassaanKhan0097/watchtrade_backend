@@ -23,6 +23,7 @@
     "morgan": "~1.9.1",
     "node-cron": "^3.0.0",
     "nodemailer": "^6.6.2",
+    "password-hash": "^1.2.2",
     "stripe": "^7.63.1",
     "validator": "^13.6.0"
   },
